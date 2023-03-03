@@ -24,7 +24,7 @@ public class OrderController {
 
     @PostMapping("/add-order")
     public ResponseEntity<String> addOrder(@RequestBody Order order){
-        this.orderService.addOrder(order);
+         orderService.addOrder(order);
         return new ResponseEntity<>("New order added successfully", HttpStatus.CREATED);
     }
 
@@ -38,7 +38,7 @@ public class OrderController {
     public ResponseEntity<String> addOrderPartnerPair(@RequestParam String orderId, @RequestParam String partnerId){
 
         //This is basically assigning that order to that partnerId
-        this.orderService.addOrderPartnerPair(orderId, partnerId);
+        orderService.addOrderPartnerPair(orderId,partnerId);
         return new ResponseEntity<>("New order-partner pair added successfully", HttpStatus.CREATED);
     }
 
@@ -95,7 +95,7 @@ public class OrderController {
 
 
         //Count of orders that have not been assigned to any DeliveryPartner
-        Integer countOfOrders = this.orderService.getCountOfUnassignedOrders();
+        Integer countOfOrders = orderService.getCountOfUnassignedOrders();
         return new ResponseEntity<>(countOfOrders, HttpStatus.CREATED);
     }
 
@@ -112,7 +112,7 @@ public class OrderController {
 
     @GetMapping("/get-last-delivery-time/{partnerId}")
     public ResponseEntity<String> getLastDeliveryTimeByPartnerId(@PathVariable String partnerId){
-        String time = this.orderService.getLastDeliveryTimeByPartnerId(partnerId);
+        String time = orderService.getLastDeliveryTimeByPartnerId(partnerId);
 
         //Return the time when that partnerId will deliver his last delivery order.
 
@@ -124,7 +124,7 @@ public class OrderController {
 
         //Delete the partnerId
         //And push all his assigned orders to unassigned orders.
-        this.orderService.deletePartnerById(partnerId);
+        orderService.deletePartnerById(partnerId);
         return new ResponseEntity<>(partnerId + " removed successfully", HttpStatus.CREATED);
     }
 
@@ -133,7 +133,7 @@ public class OrderController {
 
         //Delete an order and also
         // remove it from the assigned order of that partnerId
-        this.orderService.deleteOrderById(orderId);
+        orderService.deleteOrderById(orderId);
         return new ResponseEntity<>(orderId + " removed successfully", HttpStatus.CREATED);
     }
 }
